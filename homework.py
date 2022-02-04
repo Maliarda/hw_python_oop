@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import Dict, Type
 
 
@@ -14,21 +14,15 @@ class InfoMessage:
 
     MESSAGE_CONSTANT: str = (
         "Тип тренировки: {training_type}; "
-        + "Длительность: {duration:.3f} ч.; "
-        + "Дистанция: {distance:.3f} км; "
-        + "Ср. скорость: {speed:.3f} км/ч; "
-        + "Потрачено ккал: {calories:.3f}."
+        "Длительность: {duration:.3f} ч.; "
+        "Дистанция: {distance:.3f} км; "
+        "Ср. скорость: {speed:.3f} км/ч; "
+        "Потрачено ккал: {calories:.3f}."
     )
 
     def get_message(self) -> str:
         """Возвращает строку сообщения о тренировке."""
-        return self.MESSAGE_CONSTANT.format(
-            training_type=self.training_type,
-            duration=self.duration,
-            distance=self.distance,
-            speed=self.speed,
-            calories=self.calories,
-        )
+        return self.MESSAGE_CONSTANT.format(**asdict(self))
 
 
 class Training:
